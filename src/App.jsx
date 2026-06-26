@@ -488,8 +488,17 @@ function App() {
         id="inicio"
         className="relative mx-auto grid min-h-[calc(100vh-90px)] max-w-7xl items-center gap-10 px-6 py-16 lg:grid-cols-2 lg:px-10"
       >
-        <div className="pointer-events-none absolute left-0 top-12 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-        <div className="pointer-events-none absolute right-0 top-28 h-72 w-72 rounded-full bg-purple-200/35 blur-3xl" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+          <span className="hero-orb-3d hero-orb-pink" />
+          <span className="hero-orb-3d hero-orb-purple" />
+          <span className="hero-orb-3d hero-orb-small" />
+        </div>
+
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+          <span className="orb orb-pink" />
+          <span className="orb orb-purple" />
+          <span className="orb orb-small" />
+        </div>
 
         <motion.div
           initial="hidden"
@@ -776,8 +785,9 @@ function App() {
                     {faq.question}
 
                     <FiChevronDown
-                      className={`shrink-0 text-xl text-[#df4f91] transition ${isOpen ? 'rotate-180' : ''
-                        }`}
+                      className={`shrink-0 text-xl text-[#df4f91] transition ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
                     />
                   </button>
 
