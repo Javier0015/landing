@@ -507,10 +507,7 @@ function App() {
           transition={{ duration: 0.7 }}
           className="relative z-10"
         >
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-4 py-2 text-sm font-black text-[#d94786]">
-            <FiStar />
-            Tecnología a la medida
-          </div>
+        
 
           <h1 className="max-w-2xl text-5xl font-black leading-[0.94] tracking-tight text-[#2b183c] sm:text-6xl lg:text-7xl">
             Creamos soluciones digitales para hacer crecer tu negocio.
