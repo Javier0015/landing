@@ -522,6 +522,21 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
   const activeImage = project.gallery[imageIndex]
   const hasMultipleImages = project.gallery.length > 1
 
+  const handlePrevious = (event) => {
+    event.stopPropagation()
+    onPrevious()
+  }
+
+  const handleNext = (event) => {
+    event.stopPropagation()
+    onNext()
+  }
+
+  const handleSelectImage = (event, index) => {
+    event.stopPropagation()
+    onSelectImage(index)
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -550,26 +565,38 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
           <FiX />
         </button>
 
-        {/* Galería principal: la captura es el elemento visual protagonista. */}
+        {/* Galería principal con transición automática y controles táctiles. */}
         <section className="relative overflow-hidden border-b border-pink-100 bg-[#2b183c]">
-          <div className="relative grid h-[300px] place-items-center overflow-hidden sm:h-[420px] lg:h-[500px] xl:h-[540px]">
-            <ProjectImage
-              src={activeImage.src}
-              alt={`${project.title}: ${activeImage.title}`}
-              project={project}
-              label={activeImage.title}
-              description={activeImage.description}
-              fit="contain"
-            />
+          <div className="relative grid h-[300px] touch-pan-y select-none place-items-center overflow-hidden sm:h-[420px] lg:h-[500px] xl:h-[540px]">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={`${project.id}-${imageIndex}`}
+                initial={{ opacity: 0, x: 34, scale: 0.985 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -34, scale: 0.985 }}
+                transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 grid place-items-center"
+              >
+                <ProjectImage
+                  src={activeImage.src}
+                  alt={`${project.title}: ${activeImage.title}`}
+                  project={project}
+                  label={activeImage.title}
+                  description={activeImage.description}
+                  fit="contain"
+                />
+              </motion.div>
+            </AnimatePresence>
 
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#170c24]/90 via-[#170c24]/15 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#170c24]/90 via-[#170c24]/15 to-transparent" />
 
             {hasMultipleImages && (
               <>
                 <button
                   type="button"
-                  onClick={onPrevious}
-                  className="absolute left-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 sm:left-6 sm:h-12 sm:w-12"
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={handlePrevious}
+                  className="absolute left-4 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 touch-manipulation place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 active:scale-95 sm:left-6 sm:h-12 sm:w-12"
                   aria-label="Ver imagen anterior"
                 >
                   <FiChevronLeft />
@@ -577,8 +604,9 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
 
                 <button
                   type="button"
-                  onClick={onNext}
-                  className="absolute right-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 sm:right-6 sm:h-12 sm:w-12"
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={handleNext}
+                  className="absolute right-4 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 touch-manipulation place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 active:scale-95 sm:right-6 sm:h-12 sm:w-12"
                   aria-label="Ver imagen siguiente"
                 >
                   <FiChevronRight />
@@ -586,7 +614,7 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
               </>
             )}
 
-            <div className="absolute inset-x-0 bottom-0 px-6 pb-6 pt-20 text-white sm:px-9 sm:pb-8">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-6 pb-6 pt-20 text-white sm:px-9 sm:pb-8">
               <p className="text-xs font-black uppercase tracking-[0.2em] text-pink-200">
                 Captura {imageIndex + 1} de {project.gallery.length}
               </p>
@@ -646,8 +674,9 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
                   <button
                     key={image.title}
                     type="button"
-                    onClick={() => onSelectImage(index)}
-                    className={`h-20 min-w-28 overflow-hidden rounded-2xl border-2 transition sm:h-24 sm:min-w-32 lg:h-20 lg:min-w-0 ${
+                    onPointerDown={(event) => event.stopPropagation()}
+                    onClick={(event) => handleSelectImage(event, index)}
+                    className={`h-20 min-w-28 touch-manipulation overflow-hidden rounded-2xl border-2 transition sm:h-24 sm:min-w-32 lg:h-20 lg:min-w-0 ${
                       index === imageIndex
                         ? 'border-[#df4f91] ring-2 ring-pink-200'
                         : 'border-transparent opacity-70 hover:opacity-100'
@@ -683,6 +712,7 @@ function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSele
   )
 }
 
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
@@ -706,6 +736,19 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [selectedProject])
+
+  useEffect(() => {
+    if (!selectedProject || selectedProject.gallery.length < 2) return undefined
+
+    const carouselTimer = window.setInterval(() => {
+      setActiveProjectImage((current) => {
+        const total = selectedProject.gallery.length
+        return (current + 1) % total
+      })
+    }, 5000)
+
+    return () => window.clearInterval(carouselTimer)
+  }, [selectedProject, activeProjectImage])
 
   const openProject = (project) => {
     setSelectedProject(project)
