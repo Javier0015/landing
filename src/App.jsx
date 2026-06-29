@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   FiArrowRight,
   FiBarChart2,
   FiCheck,
   FiChevronDown,
+  FiChevronLeft,
+  FiChevronRight,
   FiCode,
   FiDatabase,
   FiGlobe,
@@ -13,10 +15,24 @@ import {
   FiMessageCircle,
   FiMonitor,
   FiShoppingBag,
+  FiSmartphone,
   FiStar,
+  FiWifi,
   FiX,
   FiZap,
 } from 'react-icons/fi'
+
+import posShaddai from './assets/shaddai/posShaddai.png'
+import loginShaddai from './assets/shaddai/loginShaddai.png'
+import inventarioShaddai from './assets/shaddai/inventarioShaddai.png'
+import medicoShaddai from './assets/shaddai/medicoShaddai.png'
+
+
+import loginSoloWifi from './assets/solowifi/login.png'
+import panelSoloWifi from './assets/solowifi/panel.png'
+import usuarioslSoloWifi from './assets/solowifi/usuarios.png'
+import dashboardlSoloWifi from './assets/solowifi/dashboard.png'
+
 
 const whatsappNumber = '5217713948794'
 
@@ -32,14 +48,6 @@ const services = [
     icon: FiGlobe,
     tag: 'Presencia digital',
     color: 'bg-pink-100 text-[#df4f91]',
-  },
-  {
-    title: 'Tiendas en línea',
-    description:
-      'Catálogos, productos, pedidos, pagos y herramientas para vender en internet.',
-    icon: FiShoppingBag,
-    tag: 'Ventas digitales',
-    color: 'bg-purple-100 text-[#68469a]',
   },
   {
     title: 'Sistemas a medida',
@@ -123,6 +131,120 @@ const solutions = [
   {
     title: 'Empresas',
     text: 'Sistemas administrativos, paneles internos, reportes y automatización.',
+  },
+]
+
+
+// Deja las rutas vacías hasta que subas tus imágenes a /public.
+// Ejemplo: coverImage: '/proyectos/farmacias/portada.jpg'
+const projects = [
+  {
+    id: 'farmacias-shaddai',
+    category: 'Farmacia · Punto de venta',
+    title: 'Farmacias Shaddai',
+    shortDescription:
+      'Sistema integral para centralizar ventas, inventario, cajas y servicios clínicos.',
+    description:
+      'Una plataforma administrativa creada para facilitar la operación diaria de una farmacia, desde el mostrador hasta el control de sucursales y la atención clínica.',
+    icon: FiShoppingBag,
+    gradientClass: 'from-[#f05ca4] via-[#d967ab] to-[#5a3c86]',
+    coverImage: loginShaddai,
+    gallery: [
+      {
+        src: posShaddai,
+        title: 'Punto de venta',
+        description: 'Agrega una captura de la pantalla principal de ventas.',
+      },
+      {
+        src: inventarioShaddai,
+        title: 'Inventario y productos',
+        description: 'Agrega una captura del catálogo, existencias o movimientos.',
+      },
+      {
+        src: medicoShaddai,
+        title: 'Atención clínica',
+        description: 'Agrega una captura de expedientes, recetas o servicios clínicos.',
+      },
+    ],
+    features: [
+      'Punto de venta con tickets, clientes, devoluciones y métodos de pago.',
+      'Inventario, compras, proveedores, lotes y control por sucursal.',
+      'Gestión de cajas, usuarios, permisos, reportes y programas de puntos.',
+      'Módulos clínicos para expedientes, recetas y servicios de atención.',
+    ],
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
+  },
+  {
+    id: 'wifi-pagos',
+    category: 'Internet · Cobranza',
+    title: 'Gestión de pagos WiFi',
+    shortDescription:
+      'Herramienta para consultar clientes, registrar pagos y dar seguimiento al servicio de internet.',
+    description:
+      'Sistema administrativo pensado para llevar un control claro de usuarios, pagos, vencimientos y movimientos relacionados con un servicio de conectividad.',
+    icon: FiWifi,
+    gradientClass: 'from-[#68469a] via-[#8b5db4] to-[#df4f91]',
+    coverImage: loginSoloWifi,
+    gallery: [
+       {
+        src: dashboardlSoloWifi,
+        title: 'Estadisticas de usuarios',
+        description: 'Ver clientes faltantes, servicios activos e inactivos.',
+      },
+      {
+        src: panelSoloWifi,
+        title: 'Panel de pagos',
+        description: 'Panel de pagos, faltantes, pagados y proximos a vencer.',
+      },
+      {
+        src: usuarioslSoloWifi,
+        title: 'Control de clientes',
+        description: 'Controla los clientes dentro del sistema.',
+      },
+    ],
+    features: [
+      'Consulta centralizada de clientes y su información de servicio.',
+      'Registro y seguimiento de pagos para facilitar la cobranza.',
+      'Historial de movimientos para conocer el estado de cada cuenta.',
+      'Información lista para revisar adeudos, vencimientos y operación diaria.',
+    ],
+    technologies: ['React', 'Node.js', 'PostgreSQL'],
+  },
+  {
+    id: 'ovnicel',
+    category: 'Reparaciones · Administración',
+    title: 'OVNICEL',
+    shortDescription:
+      'Sistema para registrar reparaciones de celulares y administrar el seguimiento de cada equipo.',
+    description:
+      'Una solución para negocios de reparación que necesitan conocer el estado de cada orden, organizar entregas y mantener un historial claro de los equipos recibidos.',
+    icon: FiSmartphone,
+    gradientClass: 'from-[#2b183c] via-[#68469a] to-[#ec66a6]',
+    coverImage: '',
+    gallery: [
+      {
+        src: '',
+        title: 'Registro de reparación',
+        description: 'Agrega una captura del alta de una orden o recepción de equipo.',
+      },
+      {
+        src: '',
+        title: 'Seguimiento de órdenes',
+        description: 'Agrega una captura de estados, diagnósticos o avances.',
+      },
+      {
+        src: '',
+        title: 'Administración del negocio',
+        description: 'Agrega una captura de clientes, entregas, pagos o reportes.',
+      },
+    ],
+    features: [
+      'Registro de clientes, equipos y detalles de cada reparación.',
+      'Seguimiento por estatus para conocer en qué etapa se encuentra cada orden.',
+      'Historial de diagnósticos, reparaciones y entregas.',
+      'Administración más ordenada de servicios, pagos y atención al cliente.',
+    ],
+    technologies: ['React', 'Node.js', 'PostgreSQL'],
   },
 ]
 
@@ -348,9 +470,261 @@ function ServiceCollage() {
   )
 }
 
+
+function ProjectImage({
+  src,
+  alt,
+  project,
+  label = 'Agrega una imagen',
+  description = 'Reemplaza la ruta vacía por la imagen del proyecto.',
+  compact = false,
+  fit = 'cover',
+}) {
+  const Icon = project.icon
+
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={`block h-full w-full ${
+          fit === 'contain' ? 'object-contain' : 'object-cover'
+        }`}
+      />
+    )
+  }
+
+  if (compact) {
+    return (
+      <div
+        className={`grid h-full w-full place-items-center bg-gradient-to-br text-base text-white ${project.gradientClass}`}
+      >
+        <Icon />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`flex h-full w-full flex-col items-center justify-center bg-gradient-to-br px-6 text-center text-white ${project.gradientClass}`}
+    >
+      <div className="grid h-16 w-16 place-items-center rounded-3xl border border-white/25 bg-white/15 text-3xl shadow-xl backdrop-blur-sm">
+        <Icon />
+      </div>
+
+      <p className="mt-5 text-base font-black">{label}</p>
+      <p className="mt-2 max-w-xs text-sm leading-6 text-white/80">{description}</p>
+    </div>
+  )
+}
+
+function ProjectModal({ project, imageIndex, onClose, onPrevious, onNext, onSelectImage }) {
+  const activeImage = project.gallery[imageIndex]
+  const hasMultipleImages = project.gallery.length > 1
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[80] overflow-y-auto bg-[#201129]/75 px-4 py-5 backdrop-blur-md sm:px-6 sm:py-10"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Detalles del proyecto ${project.title}`}
+    >
+      <motion.article
+        initial={{ opacity: 0, y: 26, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 26, scale: 0.98 }}
+        transition={{ type: 'spring', stiffness: 270, damping: 26 }}
+        onClick={(event) => event.stopPropagation()}
+        className="relative mx-auto my-auto max-w-[1240px] overflow-hidden rounded-[2rem] bg-[#fffafd] shadow-2xl sm:rounded-[2.5rem]"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-4 top-4 z-30 grid h-11 w-11 place-items-center rounded-2xl bg-white/95 text-xl text-[#d94786] shadow-lg transition hover:scale-105 sm:right-6 sm:top-6"
+          aria-label="Cerrar detalles del proyecto"
+        >
+          <FiX />
+        </button>
+
+        {/* Galería principal: la captura es el elemento visual protagonista. */}
+        <section className="relative overflow-hidden border-b border-pink-100 bg-[#2b183c]">
+          <div className="relative grid h-[300px] place-items-center overflow-hidden sm:h-[420px] lg:h-[500px] xl:h-[540px]">
+            <ProjectImage
+              src={activeImage.src}
+              alt={`${project.title}: ${activeImage.title}`}
+              project={project}
+              label={activeImage.title}
+              description={activeImage.description}
+              fit="contain"
+            />
+
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#170c24]/90 via-[#170c24]/15 to-transparent" />
+
+            {hasMultipleImages && (
+              <>
+                <button
+                  type="button"
+                  onClick={onPrevious}
+                  className="absolute left-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 sm:left-6 sm:h-12 sm:w-12"
+                  aria-label="Ver imagen anterior"
+                >
+                  <FiChevronLeft />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={onNext}
+                  className="absolute right-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-2xl bg-white/95 text-xl text-[#2b183c] shadow-lg transition hover:scale-105 sm:right-6 sm:h-12 sm:w-12"
+                  aria-label="Ver imagen siguiente"
+                >
+                  <FiChevronRight />
+                </button>
+              </>
+            )}
+
+            <div className="absolute inset-x-0 bottom-0 px-6 pb-6 pt-20 text-white sm:px-9 sm:pb-8">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-pink-200">
+                Captura {imageIndex + 1} de {project.gallery.length}
+              </p>
+              <h3 className="mt-2 text-2xl font-black sm:text-3xl">{activeImage.title}</h3>
+            </div>
+          </div>
+        </section>
+
+        {/* En escritorio, los detalles se distribuyen abajo en dos columnas. */}
+        <section className="grid lg:grid-cols-[minmax(0,1.3fr)_minmax(330px,0.7fr)]">
+          <div className="p-6 sm:p-9 lg:p-10">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#dc4c8d]">
+              {project.category}
+            </p>
+
+            <h2 className="mt-3 pr-12 text-3xl font-black leading-tight text-[#2b183c] sm:text-4xl">
+              {project.title}
+            </h2>
+
+            <p className="mt-5 max-w-3xl leading-7 text-[#71627a]">{project.description}</p>
+
+            <div className="mt-8">
+              <p className="text-sm font-black text-[#2b183c]">Funciones principales</p>
+
+              <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                {project.features.map((feature) => (
+                  <li key={feature} className="flex gap-3 text-sm leading-6 text-[#71627a]">
+                    <FiCheck className="mt-1 shrink-0 text-[#df4f91]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <aside className="border-t border-pink-100 bg-[#fff7fc] p-6 sm:p-9 lg:border-l lg:border-t-0 lg:p-10">
+            <div>
+              <p className="text-sm font-black text-[#2b183c]">Tecnologías utilizadas</p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.technologies.map((technology) => (
+                  <span
+                    key={technology}
+                    className="rounded-full bg-pink-100 px-3 py-2 text-xs font-black text-[#a63a70]"
+                  >
+                    {technology}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <p className="text-sm font-black text-[#2b183c]">Más capturas</p>
+
+              <div className="mt-4 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible">
+                {project.gallery.map((image, index) => (
+                  <button
+                    key={image.title}
+                    type="button"
+                    onClick={() => onSelectImage(index)}
+                    className={`h-20 min-w-28 overflow-hidden rounded-2xl border-2 transition sm:h-24 sm:min-w-32 lg:h-20 lg:min-w-0 ${
+                      index === imageIndex
+                        ? 'border-[#df4f91] ring-2 ring-pink-200'
+                        : 'border-transparent opacity-70 hover:opacity-100'
+                    }`}
+                    aria-label={`Ver captura: ${image.title}`}
+                  >
+                    <ProjectImage
+                      src={image.src}
+                      alt={image.title}
+                      project={project}
+                      label={`${index + 1}`}
+                      description=""
+                      compact
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2b183c] px-6 py-4 font-black text-white transition hover:-translate-y-0.5 hover:bg-[#47245e]"
+            >
+              Quiero una solución similar
+              <FiArrowRight />
+            </a>
+          </aside>
+        </section>
+      </motion.article>
+    </motion.div>
+  )
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
+  const [selectedProject, setSelectedProject] = useState(null)
+  const [activeProjectImage, setActiveProjectImage] = useState(0)
+
+  useEffect(() => {
+    if (!selectedProject) return undefined
+
+    const previousOverflow = document.body.style.overflow
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedProject(null)
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [selectedProject])
+
+  const openProject = (project) => {
+    setSelectedProject(project)
+    setActiveProjectImage(0)
+  }
+
+  const closeProject = () => {
+    setSelectedProject(null)
+    setActiveProjectImage(0)
+  }
+
+  const changeProjectImage = (direction) => {
+    if (!selectedProject) return
+
+    setActiveProjectImage((current) => {
+      const total = selectedProject.gallery.length
+      return (current + direction + total) % total
+    })
+  }
 
   return (
     <main className="bg-[#fffafd] text-[#2b183c]">
@@ -367,6 +741,10 @@ function App() {
 
             <a href="#soluciones" className="transition hover:text-[#e25091]">
               Soluciones
+            </a>
+
+            <a href="#proyectos" className="transition hover:text-[#e25091]">
+              Proyectos
             </a>
 
             <a href="#proceso" className="transition hover:text-[#e25091]">
@@ -441,6 +819,7 @@ function App() {
                   {[
                     ['Servicios', '#servicios'],
                     ['Soluciones', '#soluciones'],
+                    ['Proyectos recientes', '#proyectos'],
                     ['Cómo trabajamos', '#proceso'],
                   ].map(([label, href]) => (
                     <a
@@ -494,7 +873,7 @@ function App() {
           <span className="hero-orb-3d hero-orb-small" />
         </div>
 
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
           <span className="orb orb-pink" />
           <span className="orb orb-purple" />
           <span className="orb orb-small" />
@@ -507,7 +886,7 @@ function App() {
           transition={{ duration: 0.7 }}
           className="relative z-10"
         >
-        
+
 
           <h1 className="max-w-2xl text-5xl font-black leading-[0.94] tracking-tight text-[#2b183c] sm:text-6xl lg:text-7xl">
             Creamos soluciones digitales para hacer crecer tu negocio.
@@ -635,6 +1014,112 @@ function App() {
                     Solicitar información
                     <FiArrowRight className="transition group-hover:translate-x-1" />
                   </a>
+                </motion.article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+
+      <section id="proyectos" className="bg-[#fff7fc] py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            variants={fadeUp}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between"
+          >
+            <div className="max-w-3xl">
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-[#dc4c8d]">
+                Proyectos recientes
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black leading-tight text-[#2b183c] sm:text-5xl">
+                Sistemas creados para resolver operaciones reales.
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-[#71627a]">
+                Explora algunos proyectos desarrollados por Codelynx. Abre cada
+                sistema para ver capturas, funciones y tecnología utilizada.
+              </p>
+            </div>
+
+            <p className="max-w-xs rounded-2xl border border-pink-100 bg-white px-5 py-4 text-sm font-bold leading-6 text-[#8b7186] shadow-sm">
+              Haz clic en un proyecto para conocer más detalles.
+            </p>
+          </motion.div>
+
+          <div className="mt-14 grid gap-7 lg:grid-cols-3">
+            {projects.map((project, index) => {
+              const Icon = project.icon
+
+              return (
+                <motion.article
+                  key={project.id}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  whileHover={{ y: -8 }}
+                  className="group overflow-hidden rounded-[2rem] border border-pink-100 bg-white shadow-sm transition hover:shadow-2xl hover:shadow-pink-100"
+                >
+                  <button
+                    type="button"
+                    onClick={() => openProject(project)}
+                    className="block w-full bg-[#f8eef7] p-3 text-left"
+                    aria-label={`Ver detalles de ${project.title}`}
+                  >
+                    <div className="relative aspect-video overflow-hidden rounded-[1.5rem] border border-white/80 bg-white shadow-inner">
+                      <ProjectImage
+                        src={project.coverImage}
+                        alt={`Portada del proyecto ${project.title}`}
+                        project={project}
+                        label="Agrega la portada del sistema"
+                        description="Reemplaza coverImage con la ruta de tu imagen."
+                        fit="contain"
+                      />
+
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2b183c]/15 via-transparent to-transparent" />
+
+                      <span className="absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-2xl bg-[#2b183c]/80 text-xl text-white shadow-lg backdrop-blur-md transition group-hover:scale-110">
+                        <FiArrowRight />
+                      </span>
+                    </div>
+                  </button>
+
+                  <div className="p-7">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#dc4c8d]">
+                          {project.category}
+                        </p>
+
+                        <h3 className="mt-2 text-2xl font-black text-[#2b183c]">
+                          {project.title}
+                        </h3>
+                      </div>
+
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-pink-100 text-xl text-[#d94786]">
+                        <Icon />
+                      </div>
+                    </div>
+
+                    <p className="mt-6 min-h-[84px] leading-7 text-[#71627a]">
+                      {project.shortDescription}
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() => openProject(project)}
+                      className="mt-7 inline-flex items-center gap-2 font-black text-[#d94786] transition hover:gap-3"
+                    >
+                      Ver proyecto
+                      <FiArrowRight />
+                    </button>
+                  </div>
                 </motion.article>
               )
             })}
@@ -782,9 +1267,8 @@ function App() {
                     {faq.question}
 
                     <FiChevronDown
-                      className={`shrink-0 text-xl text-[#df4f91] transition ${
-                        isOpen ? 'rotate-180' : ''
-                      }`}
+                      className={`shrink-0 text-xl text-[#df4f91] transition ${isOpen ? 'rotate-180' : ''
+                        }`}
                     />
                   </button>
 
@@ -867,6 +1351,19 @@ function App() {
           </a>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            imageIndex={activeProjectImage}
+            onClose={closeProject}
+            onPrevious={() => changeProjectImage(-1)}
+            onNext={() => changeProjectImage(1)}
+            onSelectImage={setActiveProjectImage}
+          />
+        )}
+      </AnimatePresence>
 
       <motion.a
         whileHover={{ scale: 1.08 }}
